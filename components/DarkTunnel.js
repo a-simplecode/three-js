@@ -16,7 +16,7 @@ export default function One() {
       canvas: document.getElementById('bg'),
     });
     renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(window.innerWidth, window.innerHeight / 2);
     camera.position.setZ(cameraZ);
 
     // const controls = new OrbitControls(camera, renderer.domElement);
@@ -139,7 +139,6 @@ export default function One() {
     <div
       style={{
         height: '5000px',
-        overflowY: 'scroll',
       }}
     >
       <canvas
