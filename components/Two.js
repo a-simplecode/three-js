@@ -19,6 +19,8 @@ export default function One() {
   };
 
   const AnimationLoad = () => {
+    const raycaster = new THREE.Raycaster();
+    const pointer = new THREE.Vector2();
     const loader = new GLTFLoader();
     const url = '3DModels/porsh/scene.gltf';
     const scene = new THREE.Scene();
@@ -56,6 +58,14 @@ export default function One() {
       scene.add(car2);
       scene.add(car3);
 
+      window.addEventListener('pointermove', function onPointerMove(event) {
+        // calculate pointer position in normalized device coordinates
+        // (-1 to +1) for both components
+
+        pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
+        pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
+      });
+
       setInterval(() => {
         if (camera.position.y > 2) {
           camera.position.setY(camera.position.y - 0.05);
@@ -69,6 +79,14 @@ export default function One() {
             scroll.current ? -scroll.current / 140 + 10 : 10
           );
           car3.position.z = scroll.current ? scroll.current / 60 - 50 : -50;
+
+          raycaster.setFromCamera(pointer, camera);
+          const intersects = raycaster.intersectObjects(scene.children);
+
+          for (let i = 0; i < intersects.length; i++) {
+            intersects[i].object.material.color.set(0xff0000);
+            camera.lookAt(intersects[i].object.position);
+          }
         }
         renderer.render(scene, camera);
       }, 100 / 6);

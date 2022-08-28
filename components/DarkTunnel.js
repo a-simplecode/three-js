@@ -4,6 +4,8 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 export default function One() {
   useEffect(() => {
+    const raycaster = new THREE.Raycaster();
+    const pointer = new THREE.Vector2();
     const cameraZ = 60;
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
@@ -23,6 +25,14 @@ export default function One() {
     // const lightHelper = new THREE.PointLightHelper(pointLight);
     // const gridHelper = new THREE.GridHelper(200, 50);
     // scene.add(lightHelper, gridHelper);
+
+    window.addEventListener('click', function onClick(event) {
+      // calculate pointer position in normalized device coordinates
+      // (-1 to +1) for both components
+
+      pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
+      pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    });
 
     const pointLight = new THREE.PointLight(0xffffff);
     pointLight.position.set(5, 5, 5);
@@ -131,6 +141,25 @@ export default function One() {
 
       sphere.rotation.x += 0.02;
       sphere.rotation.y += 0.005;
+
+      raycaster.setFromCamera(pointer, camera);
+      const intersects = raycaster.intersectObjects(scene.children);
+
+      for (let i = 0; i < intersects.length; i++) {
+        // intersects[i].object.material.color.set(0xffffff);
+        if (intersects[i].object.id == torus3.id) {
+          camera.lookAt(torus3.position);
+        } else if (intersects[i].object.id == torus2.id) {
+          camera.lookAt(torus2.position);
+        } else if (intersects[i].object.id == torus.id) {
+          camera.lookAt(torus.position);
+        } else if (intersects[i].object.id == sphere.id) {
+          camera.lookAt(sphere.position);
+        } else if (intersects[i].object.id == torusKnot.id) {
+          camera.lookAt(torusKnot.position);
+        }
+      }
+
       renderer.render(scene, camera);
     }, 100 / 6);
   }, []);
