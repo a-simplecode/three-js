@@ -4,21 +4,19 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 export default function One() {
   useEffect(() => {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
     const raycaster = new THREE.Raycaster();
     const pointer = new THREE.Vector2();
     const cameraZ = 60;
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(
-      75,
-      window.innerWidth / window.innerHeight,
-      0.1,
-      1000
-    );
+    const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
     const renderer = new THREE.WebGL1Renderer({
       canvas: document.getElementById('bg'),
     });
     renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(width, height);
     camera.position.setZ(cameraZ);
 
     // const controls = new OrbitControls(camera, renderer.domElement);
@@ -29,9 +27,12 @@ export default function One() {
     window.addEventListener('click', function onClick(event) {
       // calculate pointer position in normalized device coordinates
       // (-1 to +1) for both components
-
-      pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
-      pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
+      // console.log(
+      //   (event.clientX / width) * 2 - 1,
+      //   -(event.clientY / height) * 2 + 1
+      // );TODO
+      pointer.x = (event.clientX / width) * 2 - 1;
+      pointer.y = -(event.clientY / height) * 2 + 1;
     });
 
     const pointLight = new THREE.PointLight(0xffffff);

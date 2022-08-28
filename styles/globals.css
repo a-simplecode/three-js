@@ -27,6 +27,29 @@ a {
 
 canvas {
   position: fixed;
+  top: 80px;
+  left: 0;
+}
+
+.header {
+  position: fixed;
   top: 0;
   left: 0;
+  width: 100vw;
+  height: 80px;
+  background-color: red;
+  color: white;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.header a {
+  border: 1px solid black;
+  margin: 0 10px 0 10px;
+  padding: 10px 20px;
+}
+.header a:hover {
+  color: black;
+  background-color: rgb(238, 94, 94);
 }
