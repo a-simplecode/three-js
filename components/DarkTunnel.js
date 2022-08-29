@@ -33,6 +33,24 @@ export default function One() {
       // );TODO
       pointer.x = (event.clientX / width) * 2 - 1;
       pointer.y = -(event.clientY / height) * 2 + 1;
+
+      raycaster.setFromCamera(pointer, camera);
+      const intersects = raycaster.intersectObjects(scene.children);
+
+      for (let i = 0; i < intersects.length; i++) {
+        // intersects[i].object.material.color.set(0xffffff);
+        if (intersects[i].object.id == torus3.id) {
+          camera.lookAt(torus3.position);
+        } else if (intersects[i].object.id == torus2.id) {
+          camera.lookAt(torus2.position);
+        } else if (intersects[i].object.id == torus.id) {
+          camera.lookAt(torus.position);
+        } else if (intersects[i].object.id == sphere.id) {
+          camera.lookAt(sphere.position);
+        } else if (intersects[i].object.id == torusKnot.id) {
+          camera.lookAt(torusKnot.position);
+        }
+      }
     });
 
     const pointLight = new THREE.PointLight(0xffffff);
@@ -142,24 +160,6 @@ export default function One() {
 
       sphere.rotation.x += 0.02;
       sphere.rotation.y += 0.005;
-
-      raycaster.setFromCamera(pointer, camera);
-      const intersects = raycaster.intersectObjects(scene.children);
-
-      for (let i = 0; i < intersects.length; i++) {
-        // intersects[i].object.material.color.set(0xffffff);
-        if (intersects[i].object.id == torus3.id) {
-          camera.lookAt(torus3.position);
-        } else if (intersects[i].object.id == torus2.id) {
-          camera.lookAt(torus2.position);
-        } else if (intersects[i].object.id == torus.id) {
-          camera.lookAt(torus.position);
-        } else if (intersects[i].object.id == sphere.id) {
-          camera.lookAt(sphere.position);
-        } else if (intersects[i].object.id == torusKnot.id) {
-          camera.lookAt(torusKnot.position);
-        }
-      }
 
       renderer.render(scene, camera);
     }, 100 / 6);
