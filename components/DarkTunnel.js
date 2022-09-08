@@ -169,7 +169,6 @@ export default function One() {
     <div
       style={{
         height: '5000px',
-        overflowY: 'scroll',
       }}
     >
       <canvas
