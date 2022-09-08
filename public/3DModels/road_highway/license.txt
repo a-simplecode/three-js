@@ -1,0 +1,11 @@
+Model Information:
+* title:	Road / Highway
+* source:	https://sketchfab.com/3d-models/road-highway-ffd36f67b0c8476eac5788244158394c
+* author:	ROY (https://sketchfab.com/roy.gearloft.in)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Road / Highway" (https://sketchfab.com/3d-models/road-highway-ffd36f67b0c8476eac5788244158394c) by ROY (https://sketchfab.com/roy.gearloft.in) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
