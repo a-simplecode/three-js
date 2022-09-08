@@ -1,16 +1,24 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GLTFLoader } from '../GLTFLoader';
 
 export default function WalkOnTheRoad() {
+  const currentT = useRef(0);
+
   useEffect(() => {
     const width = window.innerWidth;
     const height = window.innerHeight;
-    const cameraZ = -66;
-    const cameraX = 32;
-    const cameraY = 2;
-    const cameraPosY = -180.1;
+    const cameraZ = 85;
+    const cameraX = -9;
+    const cameraY = 3;
+    const cameraRotY = 0.1;
+    const cameraRotX = -0.4;
+
+    const carX = -9.5;
+    const carZ = 80;
+    const carY = 0.63;
+    const carRotY = 59.75;
 
     const loader = new GLTFLoader();
     const road_url = '3DModels/road_highway/scene.gltf';
@@ -38,24 +46,52 @@ export default function WalkOnTheRoad() {
     camera.position.x = cameraX;
     camera.position.z = cameraZ;
     camera.position.y = cameraY;
-    camera.rotation.y = cameraPosY;
+    camera.rotation.y = cameraRotY;
+    camera.rotation.x = cameraRotX;
 
     renderer.setClearColor(0x404040, 0);
 
     loader.load(road_url, (gltf) => {
       let road = gltf.scene;
-      road.position.y = -0.7;
+      road.position.z = -18;
+      road.position.x = 10;
+      road.rotation.y = 0;
 
       scene.add(road);
     });
 
     loader.load(car_url, (gltf) => {
       let car = gltf.scene;
-      car.position.x = 24;
-      car.position.z = -60;
-      car.rotation.y = -0.8;
+      car.position.x = carX;
+      car.position.z = carZ;
+      car.position.y = carY;
+      car.rotation.y = carRotY;
 
       scene.add(car);
+
+      function moveCamera() {
+        const t = document.body.getBoundingClientRect().top;
+
+        car.position.z = t * 0.01 + carZ;
+        camera.position.z = t * 0.01 + cameraZ;
+        if (t > -3666) {
+          car.position.x = t * 0.0007 + carX;
+          camera.position.x = t * 0.0007 + cameraX;
+        } else {
+          if (t < currentT.current) {
+            car.position.x += 0.01;
+            camera.position.x += 0.01;
+            car.rotation.y -= 0.005;
+          } else {
+            car.position.x -= 0.01;
+            camera.position.x -= 0.01;
+            car.rotation.y += 0.005;
+          }
+          // car.rotation.y = t * 0.00005 + carRotY;
+        }
+        currentT.current = t;
+      }
+      document.body.onscroll = moveCamera;
     });
     setInterval(() => {
       renderer.render(scene, camera);
@@ -63,21 +99,12 @@ export default function WalkOnTheRoad() {
 
     const spaceTextture = new THREE.TextureLoader().load('space.jpg');
     scene.background = spaceTextture;
-
-    function moveCamera() {
-      const t = document.body.getBoundingClientRect().top;
-
-      //   camera.position.z = t * 0.01 + cameraZ;
-      camera.position.x = t * 0.01 + cameraX;
-      camera.rotation.y = cameraPosY - t * 0.001;
-    }
-    document.body.onscroll = moveCamera;
   }, []);
 
   return (
     <div
       style={{
-        height: '5000px',
+        height: '50000px',
       }}
     >
       <canvas
