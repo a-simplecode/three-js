@@ -1706,3 +1706,8 @@ yocto-queue@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/yocto-queue/-/yocto-queue-0.1.0.tgz#0294eb3dee05028d31ee1a5fa2c556a6aaf10a1b"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
+
+yuka@^0.7.7:
+  version "0.7.7"
+  resolved "https://registry.yarnpkg.com/yuka/-/yuka-0.7.7.tgz#e3eba92eaee72757495dcab7b9ab3072407281c1"
+  integrity sha512-DPU1XbL2g+bIKVPmRxp8jtNURzbQyh75Ie0RzYYYboUUfTCkATbdCZXBIHMOebuDAfl4845w0Ph0Kg0tRdNkSQ==
