@@ -75,13 +75,13 @@ export default function WalkOnTheRoadTwo() {
 
     const path = new YUKA.Path();
     path.add(new YUKA.Vector3(80, 0, 0));
-    path.add(new YUKA.Vector3(80, 0, 10));
-    path.add(new YUKA.Vector3(80, 0, 20));
-    path.add(new YUKA.Vector3(80, 0, 30));
-    path.add(new YUKA.Vector3(80, 0, 40));
-    path.add(new YUKA.Vector3(90, 0, 70));
-    path.add(new YUKA.Vector3(90, 0, 90));
-    path.add(new YUKA.Vector3(80, 0, 90));
+    path.add(new YUKA.Vector3(80, 3, 10));
+    path.add(new YUKA.Vector3(80, 5, 20));
+    path.add(new YUKA.Vector3(80, 8, 30));
+    path.add(new YUKA.Vector3(80, 10, 40));
+    path.add(new YUKA.Vector3(90, 7, 70));
+    path.add(new YUKA.Vector3(90, 4, 90));
+    path.add(new YUKA.Vector3(80, 2, 90));
     path.add(new YUKA.Vector3(70, 0, 90));
     path.add(new YUKA.Vector3(60, 0, 90));
     path.add(new YUKA.Vector3(50, 0, 90));
@@ -128,7 +128,7 @@ export default function WalkOnTheRoadTwo() {
 
     function animate() {
       const delta = time.update().getDelta();
-      entityManager.update(delta * 5);
+      entityManager.update(delta * 20);
       renderer.render(scene, camera);
     }
 
