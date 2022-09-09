@@ -65,7 +65,7 @@ export default function WalkOnTheRoadTwo() {
       camera.position.y = 3;
       camera.position.z = -5;
       camera.rotation.y = Math.PI;
-      camera.rotation.x = Math.PI / 4;
+      camera.rotation.x = Math.PI / 5;
       vehicle.setRenderComponent(carClone, sync);
     });
 
@@ -74,14 +74,23 @@ export default function WalkOnTheRoadTwo() {
     }
 
     const path = new YUKA.Path();
-    path.add(new YUKA.Vector3(-80, 0, 80));
-    path.add(new YUKA.Vector3(-70, 0, 70));
-    path.add(new YUKA.Vector3(-60, 0, 60));
-    path.add(new YUKA.Vector3(-80, 0, 50));
-    path.add(new YUKA.Vector3(80, 0, 60));
-    path.add(new YUKA.Vector3(90, 0, 40));
-    path.add(new YUKA.Vector3(60, 0, 4));
-    path.add(new YUKA.Vector3(0, 0, 6));
+    path.add(new YUKA.Vector3(80, 0, 0));
+    path.add(new YUKA.Vector3(80, 0, 10));
+    path.add(new YUKA.Vector3(80, 0, 20));
+    path.add(new YUKA.Vector3(80, 0, 30));
+    path.add(new YUKA.Vector3(80, 0, 40));
+    path.add(new YUKA.Vector3(90, 0, 70));
+    path.add(new YUKA.Vector3(90, 0, 90));
+    path.add(new YUKA.Vector3(80, 0, 90));
+    path.add(new YUKA.Vector3(70, 0, 90));
+    path.add(new YUKA.Vector3(60, 0, 90));
+    path.add(new YUKA.Vector3(50, 0, 90));
+    path.add(new YUKA.Vector3(40, 0, 90));
+    path.add(new YUKA.Vector3(30, 0, 90));
+    path.add(new YUKA.Vector3(20, 0, 90));
+    path.add(new YUKA.Vector3(10, 0, 90));
+    path.add(new YUKA.Vector3(0, 0, 90));
+    path.add(new YUKA.Vector3(-10, 0, 80));
 
     path.loop = true;
 
@@ -89,7 +98,7 @@ export default function WalkOnTheRoadTwo() {
 
     //vehicle.maxSpeed = 3;
 
-    const followPathBehavior = new YUKA.FollowPathBehavior(path, 0.5);
+    const followPathBehavior = new YUKA.FollowPathBehavior(path, 1);
     vehicle.steering.add(followPathBehavior);
 
     const onPathBehavior = new YUKA.OnPathBehavior(path);
@@ -119,7 +128,7 @@ export default function WalkOnTheRoadTwo() {
 
     function animate() {
       const delta = time.update().getDelta();
-      entityManager.update(delta * 10);
+      entityManager.update(delta * 5);
       renderer.render(scene, camera);
     }
 
