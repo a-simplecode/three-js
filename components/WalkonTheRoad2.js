@@ -13,7 +13,7 @@ export default function WalkOnTheRoadTwo() {
     const height = window.innerHeight;
 
     const loader = new GLTFLoader();
-    const road_url = '3DModels/road_highway/scene.gltf';
+    const road_url = '3DModels/scifi_road/scene.gltf';
     const car_url = '3DModels/porsh/scene.gltf';
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
@@ -27,7 +27,7 @@ export default function WalkOnTheRoadTwo() {
     const ambientLight = new THREE.AmbientLight(0x404040, 2);
     scene.add(light, pointLight, ambientLight);
 
-    // const controls = new OrbitControls(camera, renderer.domElement);
+    const controls = new OrbitControls(camera, renderer.domElement);
     const lightHelper = new THREE.PointLightHelper(pointLight);
     const gridHelper = new THREE.GridHelper(200, 50);
     scene.add(lightHelper, gridHelper);
@@ -39,11 +39,26 @@ export default function WalkOnTheRoadTwo() {
 
     loader.load(road_url, (gltf) => {
       let road = gltf.scene;
-      road.position.z = -18;
-      road.position.x = 10;
+      let road2 = new THREE.Object3D().copy(road);
+      let road3 = new THREE.Object3D().copy(road);
+      // road.position.z = -18;
+      road.position.x = 0;
+      road.position.y = -32;
       road.rotation.y = 0;
 
-      //   scene.add(road);
+      road2.position.z = 400;
+      road2.position.x = 0;
+      road2.position.y = -32;
+      road2.rotation.y = Math.PI;
+
+      road3.position.z = 48.5;
+      road3.position.x = -85;
+      road3.position.y = -24;
+      road3.rotation.y = Math.PI;
+
+      scene.add(road);
+      scene.add(road2);
+      scene.add(road3);
     });
 
     const vehicleGeometry = new THREE.ConeBufferGeometry(0.1, 0.5, 8);
@@ -61,7 +76,7 @@ export default function WalkOnTheRoadTwo() {
       carClone.matrixAutoUpdate = false;
 
       scene.add(carClone);
-      carClone.add(camera);
+      // carClone.add(camera);
       camera.position.y = 3;
       camera.position.z = -5;
       camera.rotation.y = Math.PI;
@@ -127,8 +142,8 @@ export default function WalkOnTheRoadTwo() {
     const time = new YUKA.Time();
 
     function animate() {
-      const delta = time.update().getDelta();
-      entityManager.update(delta * 20);
+      // const delta = time.update().getDelta();
+      // entityManager.update(delta * 20);
       renderer.render(scene, camera);
     }
 

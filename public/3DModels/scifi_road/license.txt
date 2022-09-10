@@ -1,0 +1,11 @@
+Model Information:
+* title:	Scifi Road
+* source:	https://sketchfab.com/3d-models/scifi-road-133e05bfff55404280ce5b403ab77bb8
+* author:	IBRA (https://sketchfab.com/Brahim.Ait.Hamou)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Scifi Road" (https://sketchfab.com/3d-models/scifi-road-133e05bfff55404280ce5b403ab77bb8) by IBRA (https://sketchfab.com/Brahim.Ait.Hamou) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
