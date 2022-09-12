@@ -13,7 +13,7 @@ export default function WalkOnTheRoadTwo() {
     const height = window.innerHeight;
 
     const loader = new GLTFLoader();
-    const road_url = '3DModels/scifi_road/scene.gltf';
+    const road_url = '3DModels/scifi_road/road.gltf';
     const car_url = '3DModels/porsh/scene.gltf';
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
@@ -28,9 +28,9 @@ export default function WalkOnTheRoadTwo() {
     scene.add(light, pointLight, ambientLight);
 
     const controls = new OrbitControls(camera, renderer.domElement);
-    const lightHelper = new THREE.PointLightHelper(pointLight);
-    const gridHelper = new THREE.GridHelper(200, 50);
-    scene.add(lightHelper, gridHelper);
+    // const lightHelper = new THREE.PointLightHelper(pointLight);
+    // const gridHelper = new THREE.GridHelper(200, 50);
+    // scene.add(lightHelper, gridHelper);
 
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(width, height);
@@ -39,26 +39,12 @@ export default function WalkOnTheRoadTwo() {
 
     loader.load(road_url, (gltf) => {
       let road = gltf.scene;
-      let road2 = new THREE.Object3D().copy(road);
-      let road3 = new THREE.Object3D().copy(road);
-      // road.position.z = -18;
+      road.scale.set(0.3, 0.3, 0.3);
       road.position.x = 0;
-      road.position.y = -32;
+      road.position.y = -17.7; //-16.7
       road.rotation.y = 0;
 
-      road2.position.z = 400;
-      road2.position.x = 0;
-      road2.position.y = -32;
-      road2.rotation.y = Math.PI;
-
-      road3.position.z = 48.5;
-      road3.position.x = -85;
-      road3.position.y = -24;
-      road3.rotation.y = Math.PI;
-
       scene.add(road);
-      scene.add(road2);
-      scene.add(road3);
     });
 
     const vehicleGeometry = new THREE.ConeBufferGeometry(0.1, 0.5, 8);
@@ -77,7 +63,7 @@ export default function WalkOnTheRoadTwo() {
 
       scene.add(carClone);
       // carClone.add(camera);
-      camera.position.y = 3;
+      camera.position.y = 0;
       camera.position.z = -5;
       camera.rotation.y = Math.PI;
       camera.rotation.x = Math.PI / 5;
@@ -89,6 +75,8 @@ export default function WalkOnTheRoadTwo() {
     }
 
     const path = new YUKA.Path();
+    path.add(new YUKA.Vector3(0, 0, 0));
+    path.add(new YUKA.Vector3(0, 0, 70));
     path.add(new YUKA.Vector3(80, 0, 0));
     path.add(new YUKA.Vector3(80, 3, 10));
     path.add(new YUKA.Vector3(80, 5, 20));
@@ -135,7 +123,7 @@ export default function WalkOnTheRoadTwo() {
       new THREE.Float32BufferAttribute(position, 3)
     );
 
-    const lineMaterial = new THREE.LineBasicMaterial({ color: 0x000000 });
+    const lineMaterial = new THREE.LineBasicMaterial({ color: 0xff0000 });
     const lines = new THREE.LineLoop(lineGeometry, lineMaterial);
     scene.add(lines);
 
