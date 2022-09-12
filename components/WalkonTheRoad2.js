@@ -51,7 +51,6 @@ export default function WalkOnTheRoadTwo() {
     vehicleGeometry.rotateX(Math.PI * 0.5);
     const vehicleMaterial = new THREE.MeshNormalMaterial();
     const vehicleMesh = new THREE.Mesh(vehicleGeometry, vehicleMaterial);
-    // vehicleMesh.matrixAutoUpdate = false;
     scene.add(vehicleMesh);
 
     const vehicle = new YUKA.Vehicle();
@@ -62,8 +61,8 @@ export default function WalkOnTheRoadTwo() {
       carClone.matrixAutoUpdate = false;
 
       scene.add(carClone);
-      // carClone.add(camera);
-      camera.position.y = 0;
+      carClone.add(camera);
+      camera.position.y = 3;
       camera.position.z = -5;
       camera.rotation.y = Math.PI;
       camera.rotation.x = Math.PI / 5;
@@ -76,24 +75,37 @@ export default function WalkOnTheRoadTwo() {
 
     const path = new YUKA.Path();
     path.add(new YUKA.Vector3(0, 0, 0));
-    path.add(new YUKA.Vector3(0, 0, 70));
-    path.add(new YUKA.Vector3(80, 0, 0));
-    path.add(new YUKA.Vector3(80, 3, 10));
-    path.add(new YUKA.Vector3(80, 5, 20));
-    path.add(new YUKA.Vector3(80, 8, 30));
-    path.add(new YUKA.Vector3(80, 10, 40));
-    path.add(new YUKA.Vector3(90, 7, 70));
-    path.add(new YUKA.Vector3(90, 4, 90));
-    path.add(new YUKA.Vector3(80, 2, 90));
-    path.add(new YUKA.Vector3(70, 0, 90));
-    path.add(new YUKA.Vector3(60, 0, 90));
-    path.add(new YUKA.Vector3(50, 0, 90));
-    path.add(new YUKA.Vector3(40, 0, 90));
-    path.add(new YUKA.Vector3(30, 0, 90));
-    path.add(new YUKA.Vector3(20, 0, 90));
-    path.add(new YUKA.Vector3(10, 0, 90));
-    path.add(new YUKA.Vector3(0, 0, 90));
-    path.add(new YUKA.Vector3(-10, 0, 80));
+    path.add(new YUKA.Vector3(0, 0, 50));
+    path.add(new YUKA.Vector3(2, 0, 52));
+    path.add(new YUKA.Vector3(4, 0, 54));
+    path.add(new YUKA.Vector3(6, 0, 56));
+    path.add(new YUKA.Vector3(45, 0, 56));
+    path.add(new YUKA.Vector3(48, 0, 58));
+    path.add(new YUKA.Vector3(50, 0, 60));
+    path.add(new YUKA.Vector3(52, 0, 62));
+    path.add(new YUKA.Vector3(54, 0, 64));
+    path.add(new YUKA.Vector3(54, 0, 102));
+    path.add(new YUKA.Vector3(52, 0, 104));
+    path.add(new YUKA.Vector3(50, 0, 106));
+    path.add(new YUKA.Vector3(48, 0, 108));
+    path.add(new YUKA.Vector3(46, 0, 110));
+    path.add(new YUKA.Vector3(46, -0.5, 110));
+    path.add(new YUKA.Vector3(45, -0.8, 110));
+    path.add(new YUKA.Vector3(44, -1, 110));
+    path.add(new YUKA.Vector3(43, -1.7, 110));
+    path.add(new YUKA.Vector3(41, -2.2, 110));
+    path.add(new YUKA.Vector3(40, -3, 110));
+    path.add(new YUKA.Vector3(-44, -3, 110));
+    path.add(new YUKA.Vector3(-44, -3, 25));
+    path.add(new YUKA.Vector3(30, -3, 25));
+    path.add(new YUKA.Vector3(31, -2.5, 25));
+    path.add(new YUKA.Vector3(32, -2.0, 25));
+    path.add(new YUKA.Vector3(34, -1.5, 25));
+    path.add(new YUKA.Vector3(35, -1, 25));
+    path.add(new YUKA.Vector3(36, -0.5, 25));
+    path.add(new YUKA.Vector3(37, 0, 25));
+    path.add(new YUKA.Vector3(37, 0, 0));
+    path.add(new YUKA.Vector3(0, 0, 0));
 
     path.loop = true;
 
@@ -130,8 +142,8 @@ export default function WalkOnTheRoadTwo() {
     const time = new YUKA.Time();
 
     function animate() {
-      // const delta = time.update().getDelta();
-      // entityManager.update(delta * 20);
+      const delta = time.update().getDelta();
+      entityManager.update(delta * 10);
       renderer.render(scene, camera);
     }
 
