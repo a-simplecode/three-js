@@ -41,7 +41,7 @@ export default function WalkOnTheRoadTwo() {
       let road = gltf.scene;
       road.scale.set(0.3, 0.3, 0.3);
       road.position.x = 0;
-      road.position.y = -17.7; //-16.7
+      road.position.y = -16.7; //-17.7
       road.rotation.y = 0;
 
       scene.add(road);
@@ -109,19 +109,19 @@ export default function WalkOnTheRoadTwo() {
 
     path.loop = true;
 
-    vehicle.position.copy(path.current());
+    // vehicle.position.copy(path.current());
 
     //vehicle.maxSpeed = 3;
 
     const followPathBehavior = new YUKA.FollowPathBehavior(path, 1);
-    vehicle.steering.add(followPathBehavior);
+    // vehicle.steering.add(followPathBehavior);
 
     const onPathBehavior = new YUKA.OnPathBehavior(path);
     onPathBehavior.radius = 2;
-    vehicle.steering.add(onPathBehavior);
+    // vehicle.steering.add(onPathBehavior);
 
     const entityManager = new YUKA.EntityManager();
-    entityManager.add(vehicle);
+    // entityManager.add(vehicle);
 
     const position = [];
     for (let i = 0; i < path._waypoints.length; i++) {
@@ -142,13 +142,28 @@ export default function WalkOnTheRoadTwo() {
     const time = new YUKA.Time();
 
     function animate() {
-      const delta = time.update().getDelta();
-      entityManager.update(delta * 10);
+      // const delta = time.update().getDelta();
+      // entityManager.update(delta * 10);
+
       renderer.render(scene, camera);
+    }
+
+    function moveCar() {
+      window.onkeydown = function (e) {
+        console.log('e', e);
+        if (e.key == 'w') camera.position.z += 1;
+
+        if (e.key == 's') camera.position.z -= 1;
+
+        if (e.key == 'a') camera.position.x += 1;
+
+        if (e.key == 'd') camera.position.x -= 1;
+      };
     }
 
     setInterval(() => {
       animate();
+      moveCar();
     }, 100 / 6);
     // renderer.setAnimationLoop(animate);
 
