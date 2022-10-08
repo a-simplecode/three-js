@@ -4,9 +4,11 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GLTFLoader } from '../GLTFLoader';
 import * as SkeletonUtils from 'three/examples/jsm/utils/SkeletonUtils';
 import * as YUKA from 'yuka';
+import RoadPath from '../paths/RoadPath.json';
 
 export default function WalkOnTheRoadTwo() {
   const currentT = useRef(0);
+  const vectors = useRef([]);
 
   useEffect(() => {
     const width = window.innerWidth;
@@ -41,7 +43,7 @@ export default function WalkOnTheRoadTwo() {
       let road = gltf.scene;
       road.scale.set(0.3, 0.3, 0.3);
       road.position.x = 0;
-      road.position.y = -17.7; //-16.7
+      road.position.y = -16.7; //-17.7
       road.rotation.y = 0;
 
       scene.add(road);
@@ -66,6 +68,36 @@ export default function WalkOnTheRoadTwo() {
       camera.position.z = -5;
       camera.rotation.y = Math.PI;
       camera.rotation.x = Math.PI / 5;
+      carClone.position.x = 0;
+      carClone.position.y = 0;
+      carClone.position.z = 0;
+
+      setInterval(() => {
+        window.onkeydown = function (e) {
+          if (e.key == 'w') carClone.position.z += 1;
+
+          if (e.key == 's') carClone.position.z -= 1;
+
+          if (e.key == 'a') carClone.position.x += 1;
+
+          if (e.key == 'd') carClone.position.x -= 1;
+
+          if (e.key == 'q') carClone.position.y += 1;
+
+          if (e.key == 'e') carClone.position.y -= 1;
+
+          if (e.key == 'k')
+            console.log('vectors.current', JSON.stringify(vectors.current));
+        };
+
+        window.onkeyup = function (e) {
+          vectors.current.push({
+            z: carClone.position.z,
+            x: carClone.position.x,
+            y: carClone.position.y,
+          });
+        };
+      }, 100 / 6);
       vehicle.setRenderComponent(carClone, sync);
     });
 
@@ -75,37 +107,9 @@ export default function WalkOnTheRoadTwo() {
 
     const path = new YUKA.Path();
     path.add(new YUKA.Vector3(0, 0, 0));
-    path.add(new YUKA.Vector3(0, 0, 50));
-    path.add(new YUKA.Vector3(2, 0, 52));
-    path.add(new YUKA.Vector3(4, 0, 54));
-    path.add(new YUKA.Vector3(6, 0, 56));
-    path.add(new YUKA.Vector3(45, 0, 56));
-    path.add(new YUKA.Vector3(48, 0, 58));
-    path.add(new YUKA.Vector3(50, 0, 60));
-    path.add(new YUKA.Vector3(52, 0, 62));
-    path.add(new YUKA.Vector3(54, 0, 64));
-    path.add(new YUKA.Vector3(54, 0, 102));
-    path.add(new YUKA.Vector3(52, 0, 104));
-    path.add(new YUKA.Vector3(50, 0, 106));
-    path.add(new YUKA.Vector3(48, 0, 108));
-    path.add(new YUKA.Vector3(46, 0, 110));
-    path.add(new YUKA.Vector3(46, -0.5, 110));
-    path.add(new YUKA.Vector3(45, -0.8, 110));
-    path.add(new YUKA.Vector3(44, -1, 110));
-    path.add(new YUKA.Vector3(43, -1.7, 110));
-    path.add(new YUKA.Vector3(41, -2.2, 110));
-    path.add(new YUKA.Vector3(40, -3, 110));
-    path.add(new YUKA.Vector3(-44, -3, 110));
-    path.add(new YUKA.Vector3(-44, -3, 25));
-    path.add(new YUKA.Vector3(30, -3, 25));
-    path.add(new YUKA.Vector3(31, -2.5, 25));
-    path.add(new YUKA.Vector3(32, -2.0, 25));
-    path.add(new YUKA.Vector3(34, -1.5, 25));
-    path.add(new YUKA.Vector3(35, -1, 25));
-    path.add(new YUKA.Vector3(36, -0.5, 25));
-    path.add(new YUKA.Vector3(37, 0, 25));
-    path.add(new YUKA.Vector3(37, 0, 0));
-    path.add(new YUKA.Vector3(0, 0, 0));
+    RoadPath.map((vector) =>
+      path.add(new YUKA.Vector3(vector.x, vector.y, vector.z))
+    );
 
     path.loop = true;
 
@@ -117,7 +121,7 @@ export default function WalkOnTheRoadTwo() {
     vehicle.steering.add(followPathBehavior);
 
     const onPathBehavior = new YUKA.OnPathBehavior(path);
-    onPathBehavior.radius = 2;
+    onPathBehavior.radius = 0.1;
     vehicle.steering.add(onPathBehavior);
 
     const entityManager = new YUKA.EntityManager();
@@ -144,6 +148,7 @@ export default function WalkOnTheRoadTwo() {
     function animate() {
       const delta = time.update().getDelta();
       entityManager.update(delta * 10);
+
       renderer.render(scene, camera);
     }
 
